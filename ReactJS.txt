@@ -1,0 +1,144 @@
+1. ES6 & 7 are object oriented. 
+2. Typescript is pure object oriented. 
+3. GitHub is pushing our projects as binary files into MongoDB database. 
+4. React with WebSockets?
+5. Redux is nothing but a state manager. 
+6. Components are nothing but UI Widgets. Many such components eventually club as a UI. Each component has it's own state. 
+7. component = view (HTML + CSS + JS) + class (JSX or TSX)
+8. Both angular and react are component driven. 
+9. Component tree (B tree structure) is converted to DOM Tree. Component tree is a tree with lot of components. 
+10. Virtual DOM is an invisible DOM tree. This sits inbetween our component tree and the real DOM tree. 
+11. Our react engine keeps monitoring the vitual DOM tree for any changes. 
+12. Diffing and Reconciliation algorithm is used to update the virtual DOM tree. 
+13. Redux store sits on top of the component tree. This redux store monitors and keeps track of all the components changes in our component tree. Any updates to any component, it will update the respective components accordingly. 
+14. Data flow is only unidirectional. i.e from top to bottom in the component tree. i.e. from parent to child. 
+15. Container component is represented in red color. This component monitors lot of other presentational components(represented in blue color). 
+16. Props is nothing but a dictionary object. This 
+17. State is pertaining to a component. State of one component cannot be shared with the other components. However using Props  we can share any specific component state with it's children (but cannot share with it's parent)
+17. Module is a collection of components. Many individual componenets which we think are interrelated are designed under a common module.  
+18. Dynamically adding the components and removing is called as lazy loading in react. 
+19. Angular also uses similar virtual DOM concept called as Shadow DOM. ViewJS also uses similar concept , Micro task programming
+20. Angular is a framework  Vs React is a view-library. 
+    In angular we dont have flexibility. We just have to follow the way Google is recommending. 
+	In React, we have flexibility to adapt to our requirements. We can either use FLUX, REDUX, MOBX etc. 
+21. FLUX has multiple data stores
+    REDUX has single global data store along with few other (75 in no) API's for easy coding. 
+	MOBX also has single data store without any additional API's. 
+22. Grunt was used in the past. Now we will use WebPack. This is kind of development build automation. 
+23. NPM or YARN
+24. React now supports progressive web apps.
+25. We can develop three types of components in react.
+	a. Functional components (will not have state)
+	b. class components (will have state)
+	c. reactive hooks
+26. Functions in JS
+	a. named or declarative functions (All named functions will be added to window objects. By adding more named functions, one day our window objects will get bloated)
+	b. anononymous functions (var abc = ) (these functions are not parsed untill we call the function explictly)
+	c. lambda functions (=>) (functional component syntax)
+
+27. let vs const
+
+    let x = 10;
+	x = 'ravi'; //This is valid
+	
+	Const x= 10
+	const x = 'ravi' //This is invalid
+	
+	const store = {}
+	store = 10 //We will get compilation error in typescript. 
+	
+	
+28. TypeScript brings in type safety. So it is highly advantageous to use TypeScript with React. 
+
+29. var obj2 = object.assign({},obj1)
+
+30. Spread operator (...) in ES6. 	
+
+31. React fragment tags will help us to wrap multiple HTML elements in one container. Very similar to DIV and SPAN tags in HTML.
+
+32. Below are the four phases of react componenets
+		a. Initialization
+		b. Mounting
+		c. Update
+		d. Unmounting
+
+33. electron js (javascript for desktop app)
+
+34. Higher order component(HOC). This concept allows us to pass one component as a parameter to another component. 
+		"asyncComponent" is the higher order component.
+
+35. REF is a pointer to the virtual DOM element. Using this concept we can perform DOM updations.
+
+36. React fiber is the rendering engine which generates DOM asynchronously for non-blocking DOM udpates.
+
+37. React is a view library. 
+
+38. React + Redux = App (They follow MVC architectural pattern)
+
+39. REDUX is a tiny library (2KB API) 		
+
+40. We can program N number of reducers in a react project. In the reducer we should never write any business logic. Business logic should be written only in Actions. 
+
+41. Architecture of React + Redux applications. This picture is cyclic in shape. 
+
+Users --> Actions --> Reducers --> Store --> Providers --> Containers --> Components -->
+
+We can treat providers as subscribers to the store. 
+Containers are class components. They generally subscribe to store. 
+
+42. Component Tree + State Tree = Virtual DOM Tree
+
+43. Middlewares are optional (thunk, saga, appolo etc)
+
+44. There can be multiple reducers. However since 
+
+45. Connect is a HOC component. It Connects a React component to a Redux store. connect is a facade around connectAdvanced, providing a convenient API for the most common use cases. It does not modify the component class passed to it; instead, it returns a new, connected component class for you to use.
+	It will also convert our state to props. 
+46. 
+
+
+Installation steps:
+--------------------
+1. Install Node js from nodejs.org
+2. C:\> npm install create-react-app -g
+
+Project was created @ C:\Users\rschalam\AppData\Roaming\npm\node_modules\create-react-app\index.js
+
+3. C:\> create-react-app reactproject
+
+Creating a new React app in C:\Users\rschalam\reactproject.
+Installing react, react-dom, and react-scripts with cra-template...
+
+
+4. npm install react-router-dom --save (By default routers will not be added to newly created react projects. We need to manually add it by executing this step)
+
+5. npm install axios --save
+
+6. npm install redux --save (by default we will not get redux for newly created react projects. We need to manually add it by executing this step)
+
+7. npm install redux-devtools-extension --save-dev
+
+8. NPM install redux-thunk --save
+
+9. NPM install redux-saga --save
+
+Lazy load project:
+------------------
+Download using below link.
+
+https://bit.ly/358irsK
+
+
++++++++++++++++++++++++
+dsrmurthy786@yahoo.com
++++++++++++++++++++++++
+Donwload the react and redux material: dropboxlink
+
+https://bit.ly/2GzoLg4
+
+dsrmurthy786@yahoo.com
+Mobile No: 9848011641 (sat/sun)
+
+w3schools
+youtube videos
+
