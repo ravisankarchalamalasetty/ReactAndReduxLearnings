@@ -1,0 +1,24 @@
+1. Store - State tree
+    {input1:0,
+    input2:0,
+    output:0,
+    time:null
+    }
+2. Reducers
+   a. CalcReducer
+          - action
+   b. TimeReducer
+
+3. Actions
+    a. Add (type:"add-clicked", payload{intpu1:10,input2:30})
+    b. Subctract(type:"sub-clicked", payload{intpu1:30,input2:10})
+    c. stop(type:'stop-clicked')
+4. middleware
+     1. redux-thunk
+     2. redux-logger
+5.  Container
+          - calculatorcontainer
+          - timecontainer
+6. Presention components
+         - App
+         - Header
