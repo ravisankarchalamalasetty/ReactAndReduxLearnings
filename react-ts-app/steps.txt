@@ -1,0 +1,17 @@
+Install Node.js >8.11.x  from nodejs.org
+
+Install yarn  : 
+  >npm install yarn
+
+Install create-react-app
+  >npm install -g create-react-app
+
+Create typescript project in React:
+ 
+  >create-react-app ts-app --scripts-version=react-scripts-ts
+
+  > cd ts-app
+  > yarn start
+
+Enjoy the output.
+
