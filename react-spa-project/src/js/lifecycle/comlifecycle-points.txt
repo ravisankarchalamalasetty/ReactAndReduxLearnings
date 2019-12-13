@@ -1,0 +1,31 @@
+Component Lifecycle Hooks:
+------------------------------
+
+•	componentWillMount is executed before rendering
+•	componentDidMount is executed after first render. 
+        This is where AJAX requests and DOM or state updates should occur. 
+        This method is also used for integration with other JavaScript
+        frameworks and any functions with delayed execution like
+        setTimeout or setInterval.
+        Here is the place to load data from local storage
+
+•	componentWillReceiveProps is invoked as soon as the props are 
+    updated before another render is called.
+    Do the props validations here
+
+•	shouldComponentUpdate should return true or false value. 
+    This will determine if component will be updated or not. 
+    This is set to true by default.
+     To stop rendering DOM  after 
+     state or props are updated,  return false value.
+
+•	componentWillUpdate is called just before rendering.
+
+•	componentDidUpdate is called just after rendering.
+
+•	componentWillUnmount is called after the component is 
+     unmounted from the dom. 
+     invoke  React.unmountAndReleaseReactRootNode("node") 
+     to unmount node from virual DOM 
+
+•	componentDidCatch is called if any erorr occurs in react app.

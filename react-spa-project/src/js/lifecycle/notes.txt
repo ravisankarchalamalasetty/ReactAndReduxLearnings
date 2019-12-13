@@ -1,0 +1,303 @@
+Component Life cycle:
+Initialization
+Mounting
+Update
+Unmounting
+
+Initialization Phase:
+---------------------
+class ContraMusicPlayer extends React.Component
+constructor(props) {
+  super(props);
+  this.state = {
+    volume: 70,
+    status: 'pause'
+  }
+}
+ContraMusicPlayer.defaultProps = {
+  theme: 'dark'
+};
+
+render() {
+  <div>
+     <PlayHeader>
+       <Status/>
+       <VolumeBar/>
+       <SeekBar/>
+    </PlayHeader>
+   </div>
+}
+
+Mount:
+
+
+componentDidMount() {
+ if (this.props.modules) {
+            this.props.modules.forEach(function (module) {
+                module(Highcharts);
+            });
+        }
+        // Set container which the chart should render to.
+        this.chart = new Highcharts[this.props.type || "Chart"](
+            this.props.container, 
+            this.props.options
+        );
+}
+
+shouldComponentUpdate(nextProps, nextState) {
+  let shouldUpdate = this.props.status !== nextProps.status;
+  return shouldUpdate;
+}
+
+componentWillUnmount() {
+  this.chart.destroy();
+  this.resetLocalStorage();
+  this.clearSession();
+}
+
+
+Gradual Migration path:
+
+
+16.3: Introduce aliases for the unsafe lifecycles, 
+UNSAFE_componentWillMount, 
+UNSAFE_componentWillReceiveProps, 
+and UNSAFE_componentWillUpdate.
+(Both the old lifecycle names and the new aliases will work in this
+ release.)
+
+A future 16.x release: Enable deprecation warning for 
+componentWillMount, componentWillReceiveProps, and 
+componentWillUpdate.
+
+17.0: Remove componentWillMount, componentWillReceiveProps, 
+and componentWillUpdate .
+ 
+ (Only the new “UNSAFE_” lifecycle names will work from this point
+  forward.)
+
+
+new lifecycle methods:
+
+getDerivedStateFromProps:
+Safer alternative to the legacy componentWillReceiveProps.
+
+class Example extends React.Component {
+  static getDerivedStateFromProps(props, state) {
+    // ...
+  }
+}
+The new static getDerivedStateFromProps lifecycle is invoked
+ after a component is instantiated as well as before it is re-rendered.
+
+It can return an object to update state, or null to indicate 
+ that the new props do not require any state updates.
+
+
+
+getSnapshotBeforeUpdate :
+Support safely reading properties from e.g. the DOM before 
+updates are made.
+
+class Example extends React.Component {
+  getSnapshotBeforeUpdate(prevProps, prevState) {
+    // ...
+  }
+}
+The new getSnapshotBeforeUpdate lifecycle is called right before 
+mutations are made (e.g. before the DOM is updated). 
+The return value for this lifecycle 
+will be passed as the third parameter to componentDidUpdate.
+
+
+Examples:
+Initiale state:
+
+// Before
+class ExampleComponent extends React.Component {
+  state = {};
+
+  componentWillMount() {
+    this.setState({
+      currentColor: this.props.defaultColor,
+      palette: 'rgb',
+    });
+  }
+}
+
+// After
+class ExampleComponent extends React.Component {
+  state = {
+    currentColor: this.props.defaultColor,
+    palette: 'rgb',
+  };
+}
+
+
+// Before
+class ExampleComponent extends React.Component {
+  state = {
+    externalData: null,
+  };
+
+  componentWillMount() {
+    this._asyncRequest = loadMyAsyncData().then(
+      externalData => {
+        this._asyncRequest = null;
+        this.setState({externalData});
+      }
+    );
+  }
+
+  componentWillUnmount() {
+    if (this._asyncRequest) {
+      this._asyncRequest.cancel();
+    }
+  }
+
+  render() {
+    if (this.state.externalData === null) {
+      // Render loading state ...
+    } else {
+      // Render real UI ...
+    }
+  }
+}
+
+
+// After
+class ExampleComponent extends React.Component {
+  state = {
+    externalData: null,
+  };
+
+  componentDidMount() {
+    this._asyncRequest = loadMyAsyncData().then(
+      externalData => {
+        this._asyncRequest = null;
+        this.setState({externalData});
+      }
+    );
+  }
+
+  componentWillUnmount() {
+    if (this._asyncRequest) {
+      this._asyncRequest.cancel();
+    }
+  }
+
+  render() {
+    if (this.state.externalData === null) {
+      // Render loading state ...
+    } else {
+      // Render real UI ...
+    }
+  }
+}
+
+
+
+// Before
+class ExampleComponent extends React.Component {
+  componentWillMount() {
+    this.setState({
+      subscribedValue: this.props.dataSource.value,
+    });
+
+    // This is not safe; it can leak!
+    this.props.dataSource.subscribe(
+      this.handleSubscriptionChange
+    );
+  }
+
+  componentWillUnmount() {
+    this.props.dataSource.unsubscribe(
+      this.handleSubscriptionChange
+    );
+  }
+
+  handleSubscriptionChange = dataSource => {
+    this.setState({
+      subscribedValue: dataSource.value,
+    });
+  };
+}
+
+
+// After
+class ExampleComponent extends React.Component {
+  state = {
+    subscribedValue: this.props.dataSource.value,
+  };
+
+  componentDidMount() {
+    // Event listeners are only safe to add after mount,
+    // So they won't leak if mount is interrupted or errors.
+    this.props.dataSource.subscribe(
+      this.handleSubscriptionChange
+    );
+
+    // External values could change between render and mount,
+    // In some cases it may be important to handle this case.
+    if (
+      this.state.subscribedValue !==
+      this.props.dataSource.value
+    ) {
+      this.setState({
+        subscribedValue: this.props.dataSource.value,
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.dataSource.unsubscribe(
+      this.handleSubscriptionChange
+    );
+  }
+
+  handleSubscriptionChange = dataSource => {
+    this.setState({
+      subscribedValue: dataSource.value,
+    });
+  };
+}
+
+
+// Before
+class ExampleComponent extends React.Component {
+  state = {
+    isScrollingDown: false,
+  };
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.currentRow !== nextProps.currentRow) {
+      this.setState({
+        isScrollingDown:
+          nextProps.currentRow > this.props.currentRow,
+      });
+    }
+  }
+}
+
+
+// After
+class ExampleComponent extends React.Component {
+  // Initialize state in constructor,
+  // Or with a property initializer.
+  state = {
+    isScrollingDown: false,
+    lastRow: null,
+  };
+
+  static getDerivedStateFromProps(props, state) {
+    if (props.currentRow !== state.lastRow) {
+      return {
+        isScrollingDown: props.currentRow > state.lastRow,
+        lastRow: props.currentRow,
+      };
+    }
+
+    // Return null to indicate no change to state.
+    return null;
+  }
+}
