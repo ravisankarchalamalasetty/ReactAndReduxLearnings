@@ -1,0 +1,38 @@
+Steps to setup React :
+------------------------
+You can work on Windows / Mac / Linux
+
+Install Visual Studio IDE  or Atom  or Sublime Text Editor
+
+Install node js from http://nodejs.org website.
+
+1. Install Node js >10.16  
+    c:\> node --version
+
+2. check npm version 
+    c:\> npm --version
+
+3. npm install create-react-app  -g
+
+4. Create react project:
+    c:\> create-react-app  training-app
+
+6. Run the server and react project
+    c:\> cd  training-app
+    c:\training-app\> npm start
+
+This will build the project , automatically start
+browser and show the output of the project in localhost:3000
+
+5. Install bootstrap.css  from getbootstrap.com site
+   cd training-app
+   yarn add bootstrap   or npm install bootstrap
+
+6. copy boostrap.min. css from node_modules/dist/css folder 
+    to public folder and link it in index.html
+
+
+
+7. Start creating the project.
+======================================
+
